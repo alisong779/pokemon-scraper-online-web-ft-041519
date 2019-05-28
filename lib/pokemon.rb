@@ -1,4 +1,5 @@
 class Pokemon
+<<<<<<< HEAD
    attr_accessor :name, :type, :db, :id, :hp
 
 
@@ -25,3 +26,25 @@ class Pokemon
     self.hp = num
   end
 end 
+=======
+  attr_accessor :name, :type, :id, :db 
+  
+  def initialize(name, type, id=nil, db)
+    @name = name
+    @type = type 
+    @db = db
+    @id = id 
+  end 
+  
+  def save
+    sql = <<-SQL
+      INSERT INTO pokemon (name, type, db)
+      VALUES (?, ?, ?)
+        SQL
+        DB[:conn].execute(sql, self.name, self.type, self.db)
+        @id = DB[:conn].execute("SELECT last_insert_rowid() FROM pokemon")[0][0][0]
+  end
+
+ 
+end
+>>>>>>> a53eca79536b3de92a1f891f0381f2fe0a952e43
